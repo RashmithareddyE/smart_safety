@@ -33,7 +33,7 @@ app.post("/travel-start",(req,res)=>{
 
 const {lat,lon}=req.body
 
-const travel=JSON.parse(fs.readFileSync(TRAVEL_FILE))
+const travel=JSON.parse(fs.readFileSync(TRAVEL_FILE) || "[]")
 
 travel.push(getTimeData("TRAVEL_START",lat,lon))
 
@@ -74,35 +74,31 @@ res.send("sos stored")
 })
 
 
-// save contact
 app.post("/save-contact",(req,res)=>{
 
-const {number} = req.body
+const {number}=req.body
 
-let contacts = JSON.parse(fs.readFileSync(CONTACT_FILE))
+let contacts = JSON.parse(fs.readFileSync(CONTACT_FILE) || "[]")
 
-// check duplicate
+// check if contact already exists
 const exists = contacts.some(c => c.number === number)
 
 if(exists){
-
-return res.send("exists")
-
+    return res.send("exists")
 }
 
-contacts.push({number:number})
+contacts.push({number})
 
-fs.writeFileSync(CONTACT_FILE,JSON.stringify(contacts,null,2))
+fs.writeFileSync(CONTACT_FILE, JSON.stringify(contacts,null,2))
 
 res.send("saved")
 
 })
 
 
-// get contacts
 app.get("/get-contacts",(req,res)=>{
 
-const contacts = JSON.parse(fs.readFileSync(CONTACT_FILE))
+const contacts=JSON.parse(fs.readFileSync(CONTACT_FILE))
 
 res.json(contacts)
 
@@ -111,46 +107,67 @@ res.json(contacts)
 
 app.post("/signup",(req,res)=>{
 
-const {email,password} = req.body
+const {email,password}=req.body
 
-let users = JSON.parse(fs.readFileSync(USER_FILE))
+let users = JSON.parse(fs.readFileSync(USER_FILE, "utf8") || "[]")
 
-const exists = users.find(u => u.email === email)
+const exists=users.find(u=>u.email===email)
 
 if(exists){
-    return res.send("exists")
+
+return res.send("exists")
+
 }
 
 users.push({email,password})
 
 fs.writeFileSync(USER_FILE,JSON.stringify(users,null,2))
 
-res.send("signup_success")
+res.send("signup success")
 
 })
 
 
 app.post("/login",(req,res)=>{
 
-const {email,password} = req.body
+const {email,password}=req.body
 
-let users = JSON.parse(fs.readFileSync(USER_FILE))
+let users=JSON.parse(fs.readFileSync(USER_FILE))
 
-const user = users.find(u => u.email === email)
+const user=users.find(u=>u.email===email && u.password===password)
 
-if(!user){
-    return res.send("no_user")
+if(user){
+
+res.send("login success")
+
 }
 
-if(user.password !== password){
-    return res.send("wrong_password")
-}
+else{
 
-res.send("login_success")
+res.send("invalid")
+
+}
 
 })
 
+const RISK_FILE = "./data/risk.json"
 
+app.post("/save-risk",(req,res)=>{
+
+const {message} = req.body
+
+let risks = JSON.parse(fs.readFileSync(RISK_FILE) || "[]")
+
+risks.push({
+message:message,
+time:new Date().toLocaleString()
+})
+
+fs.writeFileSync(RISK_FILE,JSON.stringify(risks,null,2))
+
+res.send("risk saved")
+
+})
 app.listen(3000,()=>{
 
 console.log("Server running at http://localhost:3000")

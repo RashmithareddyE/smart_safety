@@ -22,7 +22,7 @@ function startTravel(){
 
 closePopup()
 
-navigator.geolocation.watchPosition((pos)=>{
+navigator.geolocation.getCurrentPosition((pos)=>{
 
 const lat = pos.coords.latitude
 const lon = pos.coords.longitude
@@ -32,8 +32,18 @@ method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify({lat,lon})
 })
+.then(res=>res.text())
+.then(data=>{
+alert("Travel started and location stored")
+})
 
 })
+
+setTimeout(function(){
+document.getElementById("safetyBox").style.display="block"
+},10000)
+
+}
 
 /* AFTER 10 SECONDS SHOW SAFETY CHECK */
 setTimeout(function(){
@@ -42,27 +52,29 @@ document.getElementById("safetyBox").style.display="block"
 
 },10000)
 
-}
+
 
 /* SHARE GPS BUTTON (also checks stop) */
-function shareLocation() {
+function shareLocation(){
 
-  navigator.geolocation.watchPosition((pos) => {
+navigator.geolocation.getCurrentPosition((pos)=>{
 
-    const lat = pos.coords.latitude
-    const lon = pos.coords.longitude
+const lat = pos.coords.latitude
+const lon = pos.coords.longitude
 
-    fetch("/share-location", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ lat, lon })
-    })
+fetch("/share-location",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({lat,lon})
+})
+.then(res=>res.text())
+.then(data=>{
+alert("Location sent successfully")
+})
 
-    checkStop(lat, lon)
+})
 
-  })
 }
-
 
 
 /* SOS */
@@ -82,9 +94,7 @@ function sendSOS() {
 }
 
 /* SAFETY POPUP BUTTONS */
-function staySafe() {
-  document.getElementById("safetyBox").style.display = "none"
-}
+
 
 function sendAlert() {
   document.getElementById("safetyBox").style.display = "none"
@@ -149,27 +159,25 @@ function closeSignup() {
   document.getElementById("signupPopup").classList.add("hidden")
 }
 
-function signup() {
+app.post("/signup",(req,res)=>{
 
-  const email = document.getElementById("signupEmail").value
-  const password = document.getElementById("signupPassword").value
+const {email,password}=req.body
 
-  fetch("/signup", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
-  })
-    .then(res => res.text())
-    .then(data => {
+let users = JSON.parse(fs.readFileSync(USER_FILE,"utf8") || "[]")
 
-      if (data === "exists") {
-        alert("Email already exists. Please login.")
-      } else {
-        alert("Signup successful")
-      }
+const exists = users.find(u => u.email === email)
 
-    })
+if(exists){
+return res.send("exists")
 }
+
+users.push({email,password})
+
+fs.writeFileSync(USER_FILE,JSON.stringify(users,null,2))
+
+res.send("signup success")
+
+})
 
 function login() {
 
@@ -191,4 +199,41 @@ function login() {
       }
 
     })
+}
+function generateRisk(){
+
+let risk = Math.floor(Math.random()*60)+20
+
+document.getElementById("riskPercent").innerText = risk + "%"
+
+}
+
+function staySafe(){
+
+document.getElementById("safetyBox").style.display="none"
+
+generateRisk()
+
+}
+function saveRiskMessage(){
+
+let msg = document.getElementById("riskMessage").value
+
+if(msg===""){
+alert("Please enter a message")
+return
+}
+
+fetch("/save-risk",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:msg})
+})
+.then(res=>res.text())
+.then(data=>{
+alert("Message saved successfully")
+})
+
+document.getElementById("riskMessage").value=""
+
 }

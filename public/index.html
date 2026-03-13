@@ -75,7 +75,6 @@ Contacts ▼
 
 </nav>
 
-
 <div class="container">
 
 <h1>Smart Transport Safety System</h1>
@@ -84,11 +83,23 @@ Contacts ▼
 
 <button onclick="sendSOS()">SOS ALERT</button>
 
+<div class="riskBox">
+
+<h3>Risk Detection</h3>
+
+<div id="riskPercent">0%</div>
+
+<textarea id="riskMessage" placeholder="Write your situation message..."></textarea>
+
+<button onclick="saveRiskMessage()">Submit Message</button>
+
+</div>
+
 </div>
 <!-- SAFETY CHECK POPUP -->
 
 <!-- SAFETY CHECK POPUP -->
-<div id="safetyBox" class="popup hidden">
+<div id="safetyBox" class="popup ">
 
 <h2>Vehicle seems stopped</h2>
 <p>Are you safe?</p>
