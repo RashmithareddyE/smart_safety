@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Women Safety</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<div id="popup" class="popup">
+
+<h2>Are you travelling in public transport?</h2>
+
+<button onclick="startTravel()">YES</button>
+<button onclick="closePopup()">NO</button>
+
+</div>
+
+
+<div id="loginPopup" class="popup hidden">
+
+<h2>Login</h2>
+
+<input id="loginEmail" placeholder="Email"><br>
+<input id="loginPassword" type="password" placeholder="Password"><br>
+
+<button onclick="login()">Login</button>
+<button onclick="closeLogin()">Close</button>
+
+</div>
+
+
+<div id="signupPopup" class="popup hidden">
+
+<h2>Signup</h2>
+
+<input id="signupEmail" placeholder="Email"><br>
+<input id="signupPassword" type="password" placeholder="Password"><br>
+
+<button onclick="signup()">Signup</button>
+<button onclick="closeSignup()">Close</button>
+
+</div>
+
+
+
+<nav>
+
+<h2>Women Safety</h2>
+
+<ul>
+
+<li class="dropdown">
+
+Contacts ▼
+
+<div class="dropdown-content">
+
+<button onclick="addContact()">Add Contact</button>
+
+<div id="contactList"></div>
+
+</div>
+
+</li>
+
+<li onclick="openLogin()">Login</li>
+<li onclick="openSignup()">Signup</li>
+
+</ul>
+
+</nav>
+
+
+<div class="container">
+
+<h1>Smart Transport Safety System</h1>
+
+<button onclick="shareLocation()">Share GPS Location</button>
+
+<button onclick="sendSOS()">SOS ALERT</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
