@@ -49,7 +49,7 @@ autoSOS = setTimeout(function(){
 sendSOS()
 },5000)
 
-},10000)
+},20000)
 }
 
 /* AFTER 10 SECONDS SHOW SAFETY CHECK */
