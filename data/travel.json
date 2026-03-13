@@ -54,5 +54,125 @@
     "time": "2:30:23 PM",
     "lat": 12.90849,
     "lon": 77.565215
+  },
+  {
+    "event": "GPS_SHARED",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "2:34:06 PM",
+    "lat": 12.9087525,
+    "lon": 77.5654335
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "2:34:11 PM",
+    "lat": 12.9087525,
+    "lon": 77.5654335
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "2:40:33 PM",
+    "lat": 12.908597000000002,
+    "lon": 77.565132
+  },
+  {
+    "event": "SOS_ALERT",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "2:40:55 PM",
+    "lat": 12.908597000000002,
+    "lon": 77.565132
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "2:48:49 PM",
+    "lat": 12.90845,
+    "lon": 77.565887
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "2:52:02 PM",
+    "lat": 12.908443,
+    "lon": 77.565903
+  },
+  {
+    "event": "GPS_SHARED",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "3:03:20 PM",
+    "lat": 12.908443,
+    "lon": 77.565903
+  },
+  {
+    "event": "GPS_SHARED",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "3:03:22 PM",
+    "lat": 12.908443,
+    "lon": 77.565903
+  },
+  {
+    "event": "GPS_SHARED",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "3:03:23 PM",
+    "lat": 12.908443,
+    "lon": 77.565903
+  },
+  {
+    "event": "SOS_ALERT",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "3:03:24 PM",
+    "lat": 12.908443,
+    "lon": 77.565903
+  },
+  {
+    "event": "SOS_ALERT",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "3:03:25 PM",
+    "lat": 12.908443,
+    "lon": 77.565903
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "3:11:46 PM",
+    "lat": 12.90846,
+    "lon": 77.56591
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "3:12:14 PM",
+    "lat": 12.90846,
+    "lon": 77.56591
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "3:12:23 PM",
+    "lat": 12.908455,
+    "lon": 77.565895
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "3:13:29 PM",
+    "lat": 12.9087525,
+    "lon": 77.5654335
   }
 ]

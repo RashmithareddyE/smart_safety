@@ -1,162 +1,194 @@
-window.onload = function(){
+let lastLat = null
+let lastLon = null
+let stopTimer = null
 
-document.getElementById("popup").style.display="block"
-
-loadContacts()
-
+window.onload = function () {
+  document.getElementById("popup").style.display = "block"
+  loadContacts()
 }
 
-
-function closePopup(){
-
-document.getElementById("popup").style.display="none"
-
+function closePopup() {
+  document.getElementById("popup").style.display = "none"
 }
 
-
-function getLocation(callback){
-
-navigator.geolocation.getCurrentPosition((pos)=>{
-
-callback(pos.coords.latitude,pos.coords.longitude)
-
-})
-
+function getLocation(callback) {
+  navigator.geolocation.getCurrentPosition((pos) => {
+    callback(pos.coords.latitude, pos.coords.longitude)
+  })
 }
 
-
-// Travel start
+/* START TRAVEL + START TRACKING */
 function startTravel(){
-
-getLocation((lat,lon)=>{
-
-fetch("/travel-start",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({lat,lon})
-
-})
-
-})
 
 closePopup()
 
-}
+navigator.geolocation.watchPosition((pos)=>{
 
+const lat = pos.coords.latitude
+const lon = pos.coords.longitude
 
-// Share GPS
-function shareLocation(){
-
-getLocation((lat,lon)=>{
-
-fetch("/share-location",{
-
+fetch("/travel-start",{
 method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
+headers:{"Content-Type":"application/json"},
 body:JSON.stringify({lat,lon})
+})
 
 })
 
-alert("Location shared")
+/* AFTER 10 SECONDS SHOW SAFETY CHECK */
+setTimeout(function(){
 
-})
+document.getElementById("safetyBox").style.display="block"
+
+},10000)
 
 }
 
+/* SHARE GPS BUTTON (also checks stop) */
+function shareLocation() {
 
-// SOS
-function sendSOS(){
+  navigator.geolocation.watchPosition((pos) => {
 
-getLocation((lat,lon)=>{
+    const lat = pos.coords.latitude
+    const lon = pos.coords.longitude
 
-fetch("/sos",{
+    fetch("/share-location", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ lat, lon })
+    })
 
-method:"POST",
+    checkStop(lat, lon)
 
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({lat,lon})
-
-})
-
-alert("SOS sent")
-
-})
-
+  })
 }
 
 
-// Add contact
-function addContact(){
 
-const number = prompt("Enter emergency contact number")
+/* SOS */
+function sendSOS() {
 
-fetch("/save-contact",{
+  getLocation((lat, lon) => {
 
-method:"POST",
+    fetch("/sos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ lat, lon })
+    })
 
-headers:{
-"Content-Type":"application/json"
-},
+    alert("SOS sent")
 
-body:JSON.stringify({number})
-
-})
-
-.then(res=>res.text())
-.then(data=>{
-
-if(data === "exists"){
-
-alert("Contact already saved")
-
-}else{
-
-alert("Contact saved")
-
-loadContacts()
-
+  })
 }
 
-})
-
+/* SAFETY POPUP BUTTONS */
+function staySafe() {
+  document.getElementById("safetyBox").style.display = "none"
 }
 
+function sendAlert() {
+  document.getElementById("safetyBox").style.display = "none"
+  sendSOS()
+}
 
-// Load contacts
-function loadContacts(){
+/* CONTACTS */
+function addContact() {
 
-fetch("/get-contacts")
+  const number = prompt("Enter emergency contact number")
 
-.then(res=>res.json())
+  fetch("/save-contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ number })
+  })
+    .then(res => res.text())
+    .then(data => {
 
-.then(data=>{
+      if (data === "exists") {
+        alert("Contact already present")
+      } else {
+        alert("Contact saved successfully")
+        loadContacts()
+      }
 
-const list = document.getElementById("contactList")
+    })
+}
 
-list.innerHTML=""
+function loadContacts() {
 
-data.forEach(c=>{
+  fetch("/get-contacts")
+    .then(res => res.json())
+    .then(data => {
 
-const div=document.createElement("div")
+      const list = document.getElementById("contactList")
+      list.innerHTML = ""
 
-div.innerText=c.number
+      data.forEach(c => {
+        const div = document.createElement("div")
+        div.innerText = c.number
+        list.appendChild(div)
+      })
 
-list.appendChild(div)
+    })
+}
 
-})
+/* LOGIN / SIGNUP */
+function openLogin() {
+  document.getElementById("loginPopup").classList.remove("hidden")
+}
 
-})
+function closeLogin() {
+  document.getElementById("loginPopup").classList.add("hidden")
+}
 
+function openSignup() {
+  document.getElementById("signupPopup").classList.remove("hidden")
+}
+
+function closeSignup() {
+  document.getElementById("signupPopup").classList.add("hidden")
+}
+
+function signup() {
+
+  const email = document.getElementById("signupEmail").value
+  const password = document.getElementById("signupPassword").value
+
+  fetch("/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  })
+    .then(res => res.text())
+    .then(data => {
+
+      if (data === "exists") {
+        alert("Email already exists. Please login.")
+      } else {
+        alert("Signup successful")
+      }
+
+    })
+}
+
+function login() {
+
+  const email = document.getElementById("loginEmail").value
+  const password = document.getElementById("loginPassword").value
+
+  fetch("/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  })
+    .then(res => res.text())
+    .then(data => {
+
+      if (data === "login success") {
+        alert("Login successful")
+      } else {
+        alert("Invalid login")
+      }
+
+    })
 }

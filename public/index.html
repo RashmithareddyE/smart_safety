@@ -21,6 +21,33 @@
 </div>
 
 
+<div id="loginPopup" class="popup hidden">
+
+<h2>Login</h2>
+
+<input id="loginEmail" placeholder="Email"><br>
+<input id="loginPassword" type="password" placeholder="Password"><br>
+
+<button onclick="login()">Login</button>
+<button onclick="closeLogin()">Close</button>
+
+</div>
+
+
+<div id="signupPopup" class="popup hidden">
+
+<h2>Signup</h2>
+
+<input id="signupEmail" placeholder="Email"><br>
+<input id="signupPassword" type="password" placeholder="Password"><br>
+
+<button onclick="signup()">Signup</button>
+<button onclick="closeSignup()">Close</button>
+
+</div>
+
+
+
 <nav>
 
 <h2>Women Safety</h2>
@@ -41,6 +68,9 @@ Contacts ▼
 
 </li>
 
+<li onclick="openLogin()">Login</li>
+<li onclick="openSignup()">Signup</li>
+
 </ul>
 
 </nav>
@@ -55,7 +85,19 @@ Contacts ▼
 <button onclick="sendSOS()">SOS ALERT</button>
 
 </div>
+<!-- SAFETY CHECK POPUP -->
 
+<!-- SAFETY CHECK POPUP -->
+<div id="safetyBox" class="popup hidden">
+
+<h2>Vehicle seems stopped</h2>
+<p>Are you safe?</p>
+
+<button onclick="staySafe()">YES, I AM SAFE</button>
+
+<button onclick="sendAlert()">NO, SEND ALERT</button>
+
+</div>
 
 <script src="script.js"></script>
 

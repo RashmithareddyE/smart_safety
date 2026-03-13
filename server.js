@@ -1,4 +1,3 @@
-
 const express = require("express")
 const fs = require("fs")
 
@@ -75,31 +74,35 @@ res.send("sos stored")
 })
 
 
+// save contact
 app.post("/save-contact",(req,res)=>{
 
-const {number}=req.body
+const {number} = req.body
 
 let contacts = JSON.parse(fs.readFileSync(CONTACT_FILE))
 
-// check if contact already exists
+// check duplicate
 const exists = contacts.some(c => c.number === number)
 
 if(exists){
-    return res.send("exists")
+
+return res.send("exists")
+
 }
 
-contacts.push({number})
+contacts.push({number:number})
 
-fs.writeFileSync(CONTACT_FILE, JSON.stringify(contacts,null,2))
+fs.writeFileSync(CONTACT_FILE,JSON.stringify(contacts,null,2))
 
 res.send("saved")
 
 })
 
 
+// get contacts
 app.get("/get-contacts",(req,res)=>{
 
-const contacts=JSON.parse(fs.readFileSync(CONTACT_FILE))
+const contacts = JSON.parse(fs.readFileSync(CONTACT_FILE))
 
 res.json(contacts)
 
@@ -108,46 +111,42 @@ res.json(contacts)
 
 app.post("/signup",(req,res)=>{
 
-const {email,password}=req.body
+const {email,password} = req.body
 
-let users=JSON.parse(fs.readFileSync(USER_FILE))
+let users = JSON.parse(fs.readFileSync(USER_FILE))
 
-const exists=users.find(u=>u.email===email)
+const exists = users.find(u => u.email === email)
 
 if(exists){
-
-return res.send("exists")
-
+    return res.send("exists")
 }
 
 users.push({email,password})
 
 fs.writeFileSync(USER_FILE,JSON.stringify(users,null,2))
 
-res.send("signup success")
+res.send("signup_success")
 
 })
 
 
 app.post("/login",(req,res)=>{
 
-const {email,password}=req.body
+const {email,password} = req.body
 
-let users=JSON.parse(fs.readFileSync(USER_FILE))
+let users = JSON.parse(fs.readFileSync(USER_FILE))
 
-const user=users.find(u=>u.email===email && u.password===password)
+const user = users.find(u => u.email === email)
 
-if(user){
-
-res.send("login success")
-
+if(!user){
+    return res.send("no_user")
 }
 
-else{
-
-res.send("invalid")
-
+if(user.password !== password){
+    return res.send("wrong_password")
 }
+
+res.send("login_success")
 
 })
 
