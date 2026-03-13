@@ -56,12 +56,6 @@ box-shadow:0px 0px 10px gray;
 
 }
 
-.hidden{
-
-display:none;
-
-}
-
 .dropdown-content{
 
 display:none;
@@ -69,20 +63,19 @@ position:absolute;
 background:white;
 padding:10px;
 box-shadow:0px 0px 8px gray;
-min-width:150px;
 color:black;
-
-}
-
-.dropdown-content div{
-
-padding:6px;
-border-bottom:1px solid #eee;
 
 }
 
 .dropdown:hover .dropdown-content{
 
 display:block;
+
+}
+
+#contactList div{
+
+padding:5px;
+border-bottom:1px solid #eee;
 
 }

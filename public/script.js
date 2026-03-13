@@ -1,4 +1,4 @@
-window.onload=function(){
+window.onload = function(){
 
 document.getElementById("popup").style.display="block"
 
@@ -6,11 +6,13 @@ loadContacts()
 
 }
 
+
 function closePopup(){
 
 document.getElementById("popup").style.display="none"
 
 }
+
 
 function getLocation(callback){
 
@@ -22,6 +24,8 @@ callback(pos.coords.latitude,pos.coords.longitude)
 
 }
 
+
+// Travel start
 function startTravel(){
 
 getLocation((lat,lon)=>{
@@ -30,7 +34,9 @@ fetch("/travel-start",{
 
 method:"POST",
 
-headers:{"Content-Type":"application/json"},
+headers:{
+"Content-Type":"application/json"
+},
 
 body:JSON.stringify({lat,lon})
 
@@ -42,6 +48,8 @@ closePopup()
 
 }
 
+
+// Share GPS
 function shareLocation(){
 
 getLocation((lat,lon)=>{
@@ -50,7 +58,9 @@ fetch("/share-location",{
 
 method:"POST",
 
-headers:{"Content-Type":"application/json"},
+headers:{
+"Content-Type":"application/json"
+},
 
 body:JSON.stringify({lat,lon})
 
@@ -62,6 +72,8 @@ alert("Location shared")
 
 }
 
+
+// SOS
 function sendSOS(){
 
 getLocation((lat,lon)=>{
@@ -70,7 +82,9 @@ fetch("/sos",{
 
 method:"POST",
 
-headers:{"Content-Type":"application/json"},
+headers:{
+"Content-Type":"application/json"
+},
 
 body:JSON.stringify({lat,lon})
 
@@ -82,6 +96,8 @@ alert("SOS sent")
 
 }
 
+
+// Add contact
 function addContact(){
 
 const number = prompt("Enter emergency contact number")
@@ -99,16 +115,16 @@ body:JSON.stringify({number})
 })
 
 .then(res=>res.text())
-
 .then(data=>{
 
 if(data === "exists"){
 
-alert("Contact already present")
+alert("Contact already saved")
 
 }else{
 
-alert("Contact saved successfully")
+alert("Contact saved")
+
 loadContacts()
 
 }
@@ -117,91 +133,29 @@ loadContacts()
 
 }
 
-function openLogin(){
 
-document.getElementById("loginPopup").classList.remove("hidden")
+// Load contacts
+function loadContacts(){
 
-}
+fetch("/get-contacts")
 
-function closeLogin(){
-
-document.getElementById("loginPopup").classList.add("hidden")
-
-}
-
-function openSignup(){
-
-document.getElementById("signupPopup").classList.remove("hidden")
-
-}
-
-function closeSignup(){
-
-document.getElementById("signupPopup").classList.add("hidden")
-
-}
-
-function signup(){
-
-const email=document.getElementById("signupEmail").value
-const password=document.getElementById("signupPassword").value
-
-fetch("/signup",{
-
-method:"POST",
-
-headers:{"Content-Type":"application/json"},
-
-body:JSON.stringify({email,password})
-
-})
-
-.then(res=>res.text())
+.then(res=>res.json())
 
 .then(data=>{
 
-if(data==="exists"){
+const list = document.getElementById("contactList")
 
-alert("Email already exists. Please login.")
+list.innerHTML=""
 
-}else{
+data.forEach(c=>{
 
-alert("Signup successful")
+const div=document.createElement("div")
 
-}
+div.innerText=c.number
 
-})
-
-}
-
-function login(){
-
-const email=document.getElementById("loginEmail").value
-const password=document.getElementById("loginPassword").value
-
-fetch("/login",{
-
-method:"POST",
-
-headers:{"Content-Type":"application/json"},
-
-body:JSON.stringify({email,password})
+list.appendChild(div)
 
 })
-
-.then(res=>res.text())
-
-.then(data=>{
-
-if(data==="login success"){
-
-alert("Login successful")
-
-}else{
-
-alert("Invalid login")
-
-}
 
 })
 
