@@ -1,6 +1,7 @@
 let lastLat = null
 let lastLon = null
 let stopTimer = null
+let autoSOS = null
 
 window.onload = function () {
   document.getElementById("popup").style.display = "block"
@@ -40,9 +41,15 @@ alert("Travel started and location stored")
 })
 
 setTimeout(function(){
-document.getElementById("safetyBox").style.display="block"
-},10000)
 
+document.getElementById("safetyBox").style.display="block"
+
+/* AUTO SOS AFTER 5 SECONDS IF NO RESPONSE */
+autoSOS = setTimeout(function(){
+sendSOS()
+},5000)
+
+},10000)
 }
 
 /* AFTER 10 SECONDS SHOW SAFETY CHECK */
@@ -96,9 +103,14 @@ function sendSOS() {
 /* SAFETY POPUP BUTTONS */
 
 
-function sendAlert() {
-  document.getElementById("safetyBox").style.display = "none"
-  sendSOS()
+function sendAlert(){
+
+clearTimeout(autoSOS)
+
+document.getElementById("safetyBox").style.display="none"
+
+sendSOS()
+
 }
 
 /* CONTACTS */
@@ -209,6 +221,8 @@ document.getElementById("riskPercent").innerText = risk + "%"
 }
 
 function staySafe(){
+
+clearTimeout(autoSOS)
 
 document.getElementById("safetyBox").style.display="none"
 

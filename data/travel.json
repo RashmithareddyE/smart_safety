@@ -14,5 +14,101 @@
     "time": "4:07:05 PM",
     "lat": 12.908579,
     "lon": 77.565224
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:27:49 PM",
+    "lat": 12.90855390732894,
+    "lon": 77.56522010334618
+  },
+  {
+    "event": "SOS_ALERT",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:28:35 PM",
+    "lat": 12.90855390732894,
+    "lon": 77.56522010334618
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:33:21 PM",
+    "lat": 12.908597000000002,
+    "lon": 77.565132
+  },
+  {
+    "event": "SOS_ALERT",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:33:34 PM",
+    "lat": 12.908597000000002,
+    "lon": 77.565132
+  },
+  {
+    "event": "SOS_ALERT",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:33:44 PM",
+    "lat": 12.908597000000002,
+    "lon": 77.565132
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:34:02 PM",
+    "lat": 12.908597000000002,
+    "lon": 77.565132
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:34:59 PM",
+    "lat": 12.908511572145724,
+    "lon": 77.5651982664664
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:37:15 PM",
+    "lat": 12.90849,
+    "lon": 77.565215
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:37:49 PM",
+    "lat": 12.90849,
+    "lon": 77.565215
+  },
+  {
+    "event": "TRAVEL_START",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:38:08 PM",
+    "lat": 12.90849,
+    "lon": 77.565215
+  },
+  {
+    "event": "SOS_ALERT",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:38:24 PM",
+    "lat": 12.908511572145724,
+    "lon": 77.5651982664664
+  },
+  {
+    "event": "SOS_ALERT",
+    "date": "3/13/2026",
+    "day": "Friday",
+    "time": "4:38:30 PM",
+    "lat": 12.908511572145724,
+    "lon": 77.5651982664664
   }
 ]
