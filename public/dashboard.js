@@ -285,3 +285,22 @@ alert("Message saved successfully")
 document.getElementById("riskMessage").value = ""
 
 }
+let map = L.map('map').setView([12.9716,77.5946], 13)
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: '© OpenStreetMap contributors'
+}).addTo(map)
+
+navigator.geolocation.getCurrentPosition((pos)=>{
+
+const lat = pos.coords.latitude
+const lon = pos.coords.longitude
+
+map.setView([lat,lon],15)
+
+L.marker([lat,lon])
+.addTo(map)
+.bindPopup("You are here")
+.openPopup()
+
+})
